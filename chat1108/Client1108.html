@@ -1,0 +1,154 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple client</title>
+    <script src="jquery-1.11.3.js"></script>
+    <script type="text/javascript">        
+            console.log("aa")
+            var ws;            
+            init()            
+            var uname
+
+
+            function init() {
+                  <!--Connect to Web Socket-->
+                ws = new WebSocket("ws://127.0.0.1:9002/");
+                  // Set event handlers.
+                ws.onopen = function() {  
+                    // var  msg = "G1^user*参加游戏1" ;
+                    // only_send(msg);                    
+                    console.log("连接成功");
+                };
+
+                  
+                ws.onmessage = function(e) {
+                    // e.data contains received string.
+                    msgRecv = e.data;
+                    console.log(e.data,"data income");
+                    msg = msgRecv.split("*")
+                    $("#log").append("<p style='color:grey;font-size:14;'>"+msg[0]+"</P>")
+                    $("#log").append("<p>"+msg[1]+"</P>")
+                    $("#log").val = msg;                                     
+                    };
+                };
+                  
+                ws.onclose = function() {
+                    $("#log").append("<p style='color:grey;font-size:14;'>"+"断开连接"+"</P>")
+                    
+                    
+                };
+                ws.onerror = function(e) {
+                    $("#log").append("<p style='color:grey;font-size:14;'>"+"onerror"+"</P>");
+                    console.log(e)
+                };       
+
+            function sendMsg() {
+                var sendMsg = $("#input").val();                
+                // You can send message to the Web Socket using ws.send.
+                // 这里可以加事件头
+                msg = "C1^"+sendMsg
+                only_send(msg);                
+                console.log(msg,"msg to send");
+                $("#input").val("");                
+                $("#input").focus();              
+            };
+            
+            function onCloseClick() {
+                ws.close();
+            }
+
+            function gameStart() {
+                var sendMsg = $("#gameStart").val();                
+                // You can send message to the Web Socket using ws.send.
+                // 这里可以加事件头
+                msg = "G1^"+sendMsg
+                only_send(msg);
+                console.log(msg,"msg to send");
+                $("#gameStart").val("");                
+                $("#gameStart").focus();              
+            };
+
+            function gameMsg() {
+                var sendMsg = $("#gameMsg").val();                
+                // You can send message to the Web Socket using ws.send.
+                // 这里可以加事件头
+                msg = "G2^"+sendMsg
+                only_send(msg);
+                console.log(msg,"msg to send");
+                $("#gameMsg").val("");                
+                $("#gameMsg").focus();              
+            };
+
+            function gameOver() {
+                var sendMsg = $("#gameOver").val();                
+                // You can send message to the Web Socket using ws.send.
+                // 这里可以加事件头
+                msg = "G3^"+"username:*"+sendMsg
+                only_send(msg);
+                console.log(msg,"msg to send");
+                $("#gameOver").val("");                
+                $("#gameOver").focus();              
+            };
+
+            function outTheHouse() {
+                var sendMsg = $("#outTheHouse").val();                
+                // You can send message to the Web Socket using ws.send.
+                // 这里可以加事件头
+                msg = "G4^"+"username:*"+sendMsg
+                only_send(msg);
+                console.log(msg,"msg to send");
+                $("#outTheHouse").val("");                
+                $("#outTheHouse").focus();              
+            };
+
+            function open(){
+                $("#robot").click(function(){
+                    console.log("sdfsdf1")
+                    var $msg = C1^jj*jj;
+                    only_send($msg);
+                    console.log("sdfsdf")
+
+                })
+            };
+
+            function only_send(msg){
+                ws.send(msg)
+            }
+    </script>
+ 
+
+
+</head>
+<body>
+    <div>
+        <input type="text" id="gameStart" >
+        <input type="button" value="开始游戏" onclick="gameStart()">        
+    </div>
+    <div>
+        <input type="text" id="gameMsg" >
+        <input type="button" value="游戏消息" onclick="gameMsg()">        
+    </div>
+    <div>
+        <input type="text" id="gameOver" >
+        <input type="button" value="游戏结束" onclick="gameOver()">        
+    </div>
+
+    <div>
+        <input type="text" id="outTheHouse" >
+        <input type="button" value="退出房间" onclick="outTheHouse()">        
+    </div>
+
+    <div>
+        <input type="text" id="input" >
+        <input type="button" value="聊天消息" onclick="sendMsg()">        
+    </div>
+    <div>
+        <input type="button" id="robot" value="聊天机器人" onclick="open()">
+    </div>
+
+
+  <div id="log" border="1px solid black;">
+        聊天内容：<br>
+  </div>
+</body>
+</html>

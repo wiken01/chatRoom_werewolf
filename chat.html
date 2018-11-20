@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>me</title>
+    <script src="js/jquery-1.11.3.js"></script>
+    <link rel="stylesheet" href="./css/chat.css">
+    <script src="js/chat.js"></script>
+</head>
+<body> 
+    <div id="frame">
+        <table>
+            <tr>
+                <td rowspan="4" id="sideBar">
+                    <div id="game">
+                        <p>狼人杀游戏</p>
+                        <ul class="h1" >
+                            <li>
+                                房间
+                                <ol>
+                                    <li><span>12人局</span></li>
+                                    <li><button  onclick="join_game()">加入</button></li>
+                                </ol>
+                            </li>
+                        </ul>
+                         <ul class="h2">
+                             <li>2号房间
+                             <ol>
+                                <li><span>12人局</span></li>
+                                <li><input type="button" name="2" value="加入"></li>
+                             </ol>
+                             </li>
+                        </ul>
+                         <ul class="h3">
+                             <li>3号房间
+                             <ol>
+                                <li><span>12人局</span></li>
+                                <li><input type="button" name="3" value="加入"></li>
+                             </ol>
+                             </li>
+                        </ul>
+
+                    </div>
+                    <div id="friends_list">
+                          <p>好友列表</p>
+                    </div>
+
+                </td>
+                <td id="userName">花花大人的群聊</td>
+            </tr>
+            <tr id="content">
+                <td id="td">
+                    <div id="add">
+                    </div>
+                    <div id="msg_end" style="height:0px; overflow:hidden"></div>
+                </td>
+            </tr>
+            <tr id="middleBar">
+                <td>
+                    <button onclick="aiRobot()"><p>小爱机器人</p></button>
+                </td>
+            </tr>
+            <tr >
+                <td id="input">
+                    <img src="images/jp_btn.png" alt="">
+                    <input id="inputMsg" type="text" >
+                    <button  class="send_btn" onclick="sendMsg()">发送</button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <!--聊天框-->
+
+
+
+
+</body>
+</html>

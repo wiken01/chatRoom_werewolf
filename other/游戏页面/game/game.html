@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>游戏界面</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" /><!-- CSS重置 -->
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/style.css"><!-- 单选框和多选框的样式 -->
+		<link rel="stylesheet" href="css/game.css"><!-- 主页面的设置 -->
+	</head>
+	<body>
+        <!-- 错误提示框 -->
+		<div class="alert alert-warning fade in text-center" id="errorAlert">
+			<button type="button" class="close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong>警告！</strong><span id="errorText"></span>
+		</div>
+        <!-- 成功提示框 -->
+		<div id="voteSuccess" class="alert alert-success" >
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<strong>成功！</strong><span id="voteText"></span>
+		</div>
+		<!-- 加入游戏 -->
+		<div class="modal fade" tabindex="-1" role="dialog" id="intoModal" data-backdrop='static' data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<button type="button" class="btn btn-info btn-lg" id="intoBtn" onfocus="this.blur();">抢座</button>
+			</div>
+		</div>
+        <!-- 房主开始游戏 -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="gameBeginModal" data-backdrop='static' data-keyboard="false">
+        	<div class="modal-dialog" role="document">
+        		<button type="button" class="btn btn-link btn-lg" id="gameBeginBtn" onfocus="this.blur();">开始游戏</button>
+        	</div>
+        </div>
+        <!-- 等待房主开始游戏提示框 -->
+        <div id="waitGameBegin" class="alert alert-info">
+        	<strong>提示！</strong><span id="voteText">等待房主开始游戏</span>
+        </div>
+        <!-- 返回的弹框 -->
+        <div class="alert alert-warning fade in" id="backAlert">
+			<strong>警告！</strong>你是否要退出？
+            <p>
+                <button type="button" class="btn btn-link pull-right" id="noBtn" onfocus="this.blur();">取消</button>
+                <button type="button" class="btn btn-link pull-right" id="yesBtn" onfocus="this.blur();">确定</button>
+            </p>
+		</div>
+		<!-- 展示角色的模态框 -->
+		<div class="modal fade" tabindex="-1" role="dialog" id="roleModal" data-backdrop='static' data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title text-center">当局你的角色</h4>
+					</div>
+					<div class="modal-body">
+						<div id="roleName"></div>
+						<img src="" id="roleImg" class="img-thumbnail center-block">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展示游戏规则 -->
+		<div class="modal fade" tabindex="-1" role="dialog" id="gameRule" data-backdrop='static' data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title text-center">规则介绍</h4>
+					</div>
+					<div class="modal-body">
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading1">
+									<h4 class="panel-title">
+										<a class="collapsed center-block text-center" role="button" data-toggle="collapse" data-parent="#accordion"
+										 href="#collapse1" aria-expanded="false" aria-controls="collapse1" onfocus="this.blur();">
+											<span>6人明牌局</span>
+										</a>
+									</h4>
+								</div>
+								<div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+									<div class="panel-body">
+										<h4>【明牌局·本局无警长】</h4>
+										<p>明牌局：玩家出局或死亡之后翻开身份牌</p>
+										<h4>【本局游戏配置】</h4>
+										<p>狼人阵营：2狼人</p>
+										<p>好人阵营：2平民、1预言家、1猎人</p>
+										<h4>【角色介绍】</h4>
+										<p>狼人：每天夜里可以杀死一个人</p>
+										<p>预言家：每天晚上可以查看一名玩家的身份是好人还是狼人</p>
+										<p>猎人：当且仅当猎人被狼人杀害或被投票放逐时，猎人可以亮出自己的身份牌并指定枪杀一名玩家</p>
+										<p>平民：没有任何能力，一觉睡到天亮</p>
+										<h4>【时间设定】</h4>
+										<p>玩家发言60s，投票时间15s，遗言时间60s</p>
+										<h4>【遗言规则】</h4>
+										<p>晚上死亡的玩家，只有首夜有遗言</p>
+										<p>所有白天死亡的玩家都有遗言</p>
+										<h4>【胜利条件】</h4>
+										<p>狼人阵营：屠城，即所有好人死亡或者好人人数小于狼人人数</p>
+										<p>好人阵营：所有狼人死亡</p>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading2">
+									<h4 class="panel-title">
+										<a class="collapsed center-block text-center" role="button" data-toggle="collapse" data-parent="#accordion"
+										 href="#collapse2" aria-expanded="false" aria-controls="collapse2" onfocus="this.blur();">
+											10
+										</a>
+									</h4>
+								</div>
+								<div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+									<div class="panel-body">
+
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading3">
+									<h4 class="panel-title">
+										<a class="collapsed center-block text-center" role="button" data-toggle="collapse" data-parent="#accordion"
+										 href="#collapse3" aria-expanded="false" aria-controls="collapse3" onfocus="this.blur();">
+											12人标准局
+										</a>
+									</h4>
+								</div>
+								<div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+									<div class="panel-body">
+										<h4>【暗牌局·本局有警长】</h4>
+										<p>暗牌局：玩家出局或死亡之后不翻开身份牌</p>
+										<p>警长：附加身份牌，游戏开始后第一天从所有玩家中通过投票选举一名玩家授予警长，警长在白天最后一个发言并且投票时有1.5票</p>
+										<h4>【本局游戏配置】</h4>
+										<p>狼人阵营：4狼人</p>
+										<p>好人阵营：4平民、预言家、女巫、猎人、守卫</p>
+										<h4>【角色介绍】</h4>
+										<p>狼人：每天夜里可以杀死一个人</p>
+										<p>预言家：每天晚上可以查看一名玩家的身份是好人还是狼人</p>
+										<p>女巫：女巫拥有两瓶药，解药可以救活一名当晚被狼人杀害的玩家，毒药可以毒杀一名玩家，女巫再每天晚上最多使用一瓶药，女巫不可自救</p>
+										<p>猎人：当且仅当猎人被狼人杀害或被投票放逐时，猎人可以亮出自己的身份牌并指定枪杀一名玩家</p>
+										<p>tips：被女巫毒杀不可开枪</p>
+										<p>守卫：每晚可以守护一名玩家，但不能连续两晚守护同一个名玩家。被守卫守护的玩家当晚不会被狼人杀害</p>
+										<p>平民：没有任何能力，一觉睡到天亮</p>
+										<h4>【时间设定】</h4>
+										<p>上警时间15s，玩家发言120s，警长发言150s发言</p>
+										<p>投票时间15s，遗言时间120s</p>
+										<h4>【遗言规则】</h4>
+										<p>晚上死亡的玩家，只有首夜有遗言</p>
+										<p>所有白天死亡的玩家都有遗言</p>
+										<h4>【胜利条件】</h4>
+										<p>狼人阵营：屠边，即杀死所有神职牌，或者杀死所有的平民玩家</p>
+										<p>好人阵营：所有狼人死亡</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 无角色模型 -->
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="noRoleModal">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h2 class="text-center ">暂无角色</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 投票时的模型 -->
+		<div class="modal fade" tabindex="-1" role="dialog" id="voteModal" data-backdrop='static' data-keyboard="false">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<i id="shot-clock"></i>
+						<h4 class="modal-title text-center" id="clue"></h4>
+					</div>
+					<div class="modal-body">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="voteBtn">完成</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 网页主体 -->
+		<div class="container">
+			<!-- 第一行 -->
+			<div class="row">
+				<div class="col-md-12">
+					<p class="roomNo center-block">
+						<button type="button" id="backBtn" class="btn btn-primary btn-sm pull-left">
+							<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;&nbsp;返回
+						</button>
+						<b>1号房间</b>
+						<small>
+							2狼2民1预1猎&nbsp;&nbsp;&nbsp;<span>屠城</span>
+						</small>
+						<button type="button" id="helpBtn" class="btn btn-primary btn-sm pull-right">
+							<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;&nbsp;帮助
+						</button>
+						<button type="button" id="lookRoleBtn" class="btn btn-primary btn-sm pull-right">
+							<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;参看本局角色
+						</button>
+					</p>
+				</div>
+			</div>
+			<!-- 第二行 用户信息和系统提示-->
+			<div class="row">
+				<div class="col-md-4">
+					<!-- 默认 -->
+					<div class="userBox pull-left" id="user-1">
+						<img src="" alt="" class="img-circle center-block">
+						<p></p>
+						<span>1</span>
+						<p id="homeowner" class="glyphicon glyphicon-home" aria-hidden="true">房主</p>
+					</div>
+					<div class="userBox pull-left" id="user-2">
+						<img src="" alt="" class="img-circle center-block">
+						<p></p>
+						<span>2</span>
+					</div>
+					<div class="userBox pull-left" id="user-3">
+						<img src="" alt="" class="img-circle center-block">
+						<p></p>
+						<span>3</span>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="col-md-4">
+					<div class="systemPrompt">
+						<p class="dayTime">&nbsp;</p>
+						<p class="time"></p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<!-- 用户自己 -->
+					<div class="userBox pull-left" id="user-4">
+						<img src="" alt="" class="img-circle center-block">
+						<p></p>
+						<span>4</span>
+					</div>
+					<div class="userBox pull-left" id="user-5">
+						<img src="" alt="" class="img-circle center-block">
+						<p></p>
+						<span>5</span>
+					</div>
+					<div class="userBox pull-left" id="user-6">
+						<img src="" alt="" class="img-circle center-block">
+						<p></p>
+						<span>6</span>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<!-- 第三行 - 系统信息 -->
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-3">
+					<img id="sheriff" src="img/role/role_img_jh_dd3ac64.jpg" class="img-rounded center-block">
+				</div>
+				<div class="col-md-4">
+					<div id="msgBox">
+						
+					</div>
+				</div>
+				<div id="msg_end" style="height:0px; overflow:hidden"></div>
+				<div class="col-md-4">
+					<div id="sysMsgBox">
+						<p class="sys-msg">系统进展</p>
+						
+					</div>
+					<div id="msg_end" style="height:0px; overflow:hidden"></div>
+				</div>
+			</div>
+			<!-- 第四行 - 用户和输入框-->
+			<div class="row">
+				<div class="col-md-4">
+					<div class="userBox pull-left lock" id="user-7">
+						<img src="" alt="" class="img-circle center-block">
+						<p>锁定</p>
+						<span>7</span>
+					</div>
+					<div class="userBox pull-left lock" id="user-8">
+						<img src="" alt="" class="img-circle center-block">
+						<p>锁定</p>
+						<span>8</span>
+					</div>
+					<div class="userBox pull-left lock" id="user-9">
+						<img src="" alt="" class="img-circle center-block">
+						<p>锁定</p>
+						<span>9</span>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="chatbox">
+						<p>
+							<button class="btn btn-default" id="diceBtn" type="submit">
+								<img src="img/dice/dice.png">
+								<span class="tooltiptext"><span class="glyphicon glyphicon-alert"></span>&nbsp;&nbsp;请点击此处</span>
+							</button>
+							<button class="btn btn-default" id="sysMsgHistoryBtn" type="submit">
+								<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+							</button>
+						</p>
+						<textarea cols="23" wrap="hard" id="text" class="form-control"></textarea>
+						<button type="button" class="btn btn-primary pull-right" id="sendMsgBtn">
+							发送
+							<div id="blankMessage">
+								<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+								<span>发送的消息不能为空，请重新输入。</span>
+							</div>
+						</button>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="userBox pull-left lock" id="user-10">
+						<img src="" alt="" class="img-circle center-block">
+						<p>锁定</p>
+						<span>10</span>
+					</div>
+					<div class="userBox pull-left lock" id="user-11">
+						<img src="" alt="" class="img-circle center-block">
+						<p>锁定</p>
+						<span>11</span>
+					</div>
+					<div class="userBox pull-left lock" id="user-12">
+						<img src="" alt="" class="img-circle center-block">
+						<p>锁定</p>
+						<span>12</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/jquery.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/game.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/game_other.js"></script>
+	</body>
+</html>

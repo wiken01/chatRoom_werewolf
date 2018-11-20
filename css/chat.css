@@ -1,0 +1,304 @@
+table,tr,td,p,div {
+    margin:0;
+    padding: 0;
+}
+/*基本设置*/
+body{
+    background:url("../images/111.jpg") no-repeat center center fixed;
+    background-size:100% ;
+}
+table{
+    background-color: #EEF5F7;
+    position: fixed;
+    width:900px;
+    height: 500px;
+    left: 50%;
+    top: 50%;
+    margin-top: -360px;
+    margin-left: -450px;
+}
+table,tr,td{
+    /*border: 1px solid black;*/
+    border-collapse: collapse;
+}
+#userName{
+    width: 650px;
+    height: 50px;
+    border-bottom: 2px solid #E3EAE7;
+    text-align: center;
+    font-size: 18px;
+    color: darkgray;
+}
+#sideBar{
+    vertical-align: top;
+    width: 250px;
+    background-color: #262E35;
+    color: #fff;
+}
+#content{
+    width: 600px;
+    height: 570px;
+    overflow: auto;
+    bottom:0px;
+}
+
+#middleBar{
+    height: 50px;
+    border-top:1px solid #E3EAE7;
+}
+#middleBar button{
+    width: 110px;
+    height: 40px;
+    font-size: 14px;
+    background-color: #EEF5F7;
+    color: lightslategrey;
+    margin-top:15px;
+    margin-left: 23px;
+    border-radius: 10px ;
+}
+input{
+    width:425px;
+    height: 50px;
+    border-radius: 5px;
+    outline: none;
+    border:1px solid #E3EAE7;
+    font-size: 24px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+
+}
+#input{
+    height: 50px;
+}
+#input  img{
+    margin:7px;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 17px;
+    left: 10px;
+}
+
+.send_btn{
+    width: 110px;
+    height: 45px;
+    border-radius: 3px;
+    background-color:lightgrey;
+    margin: 5px;
+    font-size: 24px;
+    margin-left: 2px
+;
+}
+#add{
+    overflow-y: auto;
+    height: 574px;
+    width: 650px;
+    word-break: break-all;
+}
+
+
+/*會話框左浮動*/
+    .img{
+        width: 40px;
+        height: 40px;
+        float:left;
+    }
+    #sender{
+        clear:both;
+        margin: 0 0px 0px 20px;
+        padding: 5px 0px 5px 5px;
+        border-radius:3px;
+    }
+    .triangle{
+        height:0px;
+        width:0px;
+        border-width:10px;
+        border-style:solid;
+        border-color:transparent gold transparent transparent;
+        left:-20px;
+        top:15px;
+        position: relative;
+
+    }
+    .two{
+        float:left;
+        position: relative;
+        top: -7px;
+        left: 15px;
+    }
+    .text{
+        font-size: 20px;
+        padding: 10px;
+
+        position: relative;
+        top: -16px;
+        float: left;
+        background-color: gold;
+        border-radius: 5px;
+        text-align: left;
+
+    }
+    #text_up_left{
+        width: 400px;
+        word-break: break-all;
+    }
+
+
+/*会话框右浮动*/
+    #sender_right{
+        clear:both;
+        padding: 5px 0px 5px 5px;
+    }
+    .img_right{
+        width: 40px;
+        height: 40px;
+        float:right;
+        position: relative;
+        left:-20px
+    }
+    .triangle_right{
+        height:0px;
+        width:0px;
+        float: right;
+        border-width:10px;
+        border-style:solid;
+        border-color:transparent transparent transparent deepskyblue;
+        left:27px;
+        top:15px;
+        position: relative;
+
+    }
+    .two_right{
+        background-color: gold;
+        border-radius: 5px;
+        position: relative;
+        left:-45px;
+        top: -2px;
+
+
+    }
+    .text_right{
+        text-align: right;
+        /*width: 400px;*/
+        /*word-break: break-all;*/
+        float: right;
+        font-size: 20px;
+        padding: 10px;
+        position: relative;
+        top: -2px;
+        left: 213px;
+        border-radius: 5px;
+        background-color: deepskyblue;
+    }
+    #text_up_right{
+        width: 400px;
+        word-break: break-all;
+    }
+
+/*好友列表*/
+    #friend{
+        border: 1px solid #2E363D;
+    }
+    #frind:hover{
+        background-color: #C1C1C1;
+    }
+    #friend_img{
+        float:left;
+        width: 40px!important;
+        height: 40px!important;
+        position: relative;
+        left: 6px;
+        top: 10px;
+    }
+    #name{
+        float: left;
+        height: 60px;
+        width: 150px;
+        color: #ffffff;
+        position: relative;
+        top:20px;
+        left: 20px;
+    }
+    #hidden_div{
+        clear:both;
+    }
+    #friends_list{
+        /*height: 500px;*/
+        overflow-y: auto;
+        color:#fff;
+        margin: 0px;
+        padding: 0px;
+        position: relative;
+        left:2px;
+    }
+    #friends_list p{
+        text-align: center;
+        margin: 5px;
+    }
+
+
+/*狼人杀图标*/
+    #game{
+    height: 250px;
+    background-color:#262E35;
+    text-align: center;
+    font-size: 18px;
+    border-bottom: 3px solid #2E363D;
+}
+    #game>p:nth-of-type(1){
+        font-size: 24px;
+    }
+    #game input{
+        width: 60px;
+    }
+
+    #game>ul,ol{
+        float: left;
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        text-align: center;
+
+    }
+    #game li{
+        width: 75px;
+        height: 65px;
+        border: 2px solid #2E363D;
+        line-height: 70px;
+    }
+    ul{
+        position: relative;
+        left: 6px;
+    }
+    #game button{
+        width: 60px;
+        height: 50px;
+        border-radius: 5px;
+        font-size: 18px;
+    }
+    ol{
+        display: none;
+    }
+    ul>li:hover{
+
+        background-color: #757677;
+    }
+   ul>li:hover>ol{
+       display: block;
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
